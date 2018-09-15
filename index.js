@@ -12,6 +12,8 @@ const writeFile = promisify(fs.writeFile);
 
 const mailgunKey = process.env.MAILGUN_KEY;
 const mailgunDomain = process.env.MAILGUN_DOMAIN;
+const fromAddress = process.env.FROM_ADDRESS;
+const toAddress = process.env.TO_ADDRESS;
 
 const mailgun = mailgunJs({ apiKey: mailgunKey, domain: mailgunDomain });
 
@@ -56,8 +58,9 @@ async function go() {
 	if (carsText) {
 		try {
 			await mailgun.messages().send({
-				from: 'mailbumotorschecker@tweeres.ca',
-				to: 'tweeres04@gmail.com',
+				from: fromAddress,
+				to: toAddress,
+				subject: 'New vehicles posted at Malibu Motors',
 				text: carsText
 			});
 		} catch (err) {
