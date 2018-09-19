@@ -55,6 +55,8 @@ async function go() {
 		.join('\n\n')
 		.trim();
 
+	const now = new Date().toLocaleString();
+
 	if (carsText) {
 		try {
 			await mailgun.messages().send({
@@ -67,10 +69,10 @@ async function go() {
 			console.error(err);
 			return;
 		}
-		console.log('Sent the notification');
+		console.log(`${now}: Sent the notification`);
 		storeIds(cars, existingIds);
 	} else {
-		console.log('No new cars');
+		console.log(`${now}: No new cars`);
 	}
 }
 
